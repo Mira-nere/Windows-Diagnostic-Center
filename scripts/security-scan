@@ -1,0 +1,32 @@
+#Weekly General log information
+
+$logfile = "C:\ITAutomation\Logs\MaintenanceLogs.txt"
+$dandt = get-date -format "MM:dd:yyyy HH:mm:ss"
+$cname = $env:COMPUTERNAME
+$user = $env:USERNAME
+
+add-content -path $logfile -value "============================================"
+add-content -path $logfile -value "A Weekly log has been generated!"
+add-content -path $logfile -value "As of $dandt"
+add-content -path $logfile -value "Computer: $cname"
+add-content -path $logfile -value "Username: $user"
+add-content -path $logfile -value ""
+
+#Run Windows defender
+update-mpsignature
+start-mpscan -scantype quickscan
+add-content -path $logfile -value "Quick scan is completed! Check information for more"
+
+#Query threats after the scan finishes
+$threats = get-mpthreatdetection
+
+#Capture the output
+$scanRes = if ($threats) {
+	"THREAD DETECTED!`n" + ($threats | Select-object ThreatName, InitialDetectionTime, Resources | Out-String)
+}
+else {
+	"NO THREATS FOUND!" 
+}
+
+add-content -path $logfile -value "$scanRes"
+add-content -path $logfile -value "============================================"

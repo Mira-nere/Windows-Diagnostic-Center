@@ -4,7 +4,7 @@ $comname = $env:COMPUTERNAME						                              #creates a varia
 $user = $env:USERNAME							                                    #creates a variable containing the value of current user name
 
 add-content -path $logfile -value "================================" 	#creates a border
-add-content -path $logfile -value "A log has been generated!"		      #added a printed text
+add-content -path $logfile -value "A Daily log has been generated!"		      #added a printed text
 add-content -path $logfile -value "As of $dandt"		                	#added a printed text + calling the variable
 add-content -path $logfile -value "Computer: $comname"		          	#added a printed text + calling the variable
 add-content -path $logfile -value "Username: $user"			               #added a printed text + calling the variable

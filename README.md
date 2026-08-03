@@ -1,15 +1,15 @@
 # Automated Windows System Maintenance & Monitoring Framework
 
-A HomeLab & Foundational-ready, background-automated PowerShell maintenance framework for Windows environments. This project automates daily housekeeping, weekly diagnostic scans, and monthly health auditing using native Windows utilities, Task Scheduler triggers, and structured logging.
+**A HomeLab & Foundational-ready, background-automated PowerShell maintenance framework for Windows environments. This project automates daily housekeeping, weekly diagnostic scans, and monthly health auditing using native Windows utilities, Task Scheduler triggers, and structured logging.
 
 IT Home Laboratory Project 1:  Supplementary for Help Desk Support and Administrators. <br>
-Specialized in Windows-featured Diagnostic Features.
+Specialized in Windows-featured Diagnostic Features.**
 
 ---
 
-**Learning Objectives:**
+### Learning Objectives:**
 
-Windows Architecture
+**Windows Architecture
 
 Windows Administration
 - Computer Management
@@ -25,7 +25,7 @@ Windows Administration
 Microsoft Sysinternals
 - Process Explorer
 - Autoruns
-- TCPView
+- TCPView**
 ---
 
 # Project Overview

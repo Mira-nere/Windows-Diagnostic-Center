@@ -1,22 +1,25 @@
-#Monthly
+#Monthly Maintenance Script
 
-$logfile = "C:\ITAutomation\Logs\MaintenanceLogs.txt"			            #creates a variable for a directed log path
-$dandt = get-date -Format "MM:dd:yyyy HH:mm:ss"				                #creates a variable containing the value of date and time information, according to the specific format
-$comname = $env:COMPUTERNAME						                              #creates a variable containing the value of current computer name
-$user = $env:USERNAME							                                    #creates a variable containing the value of current user name
-$wininf = get-ciminstance -classname win32_OperatingSystem | Select-object Caption, Version, BuildNumber, OSArchitecture         #variable for Winversion information
-$batrep = "C:\ITAutomation\Logs\battery-report.html"                  #create variable for Output file of battery report
+#Computer Information
+$logfile = "C:\ITAutomation\Logs\MaintenanceLogs.txt"			            
+$dandt = get-date -Format "MM:dd:yyyy HH:mm:ss"				                
+$comname = $env:COMPUTERNAME						                              
+$user = $env:USERNAME							                                    
 
-add-content -path $logfile -value "================================" 	#creates a border
-add-content -path $logfile -value "A Daily log has been generated!"		#added a printed text
-add-content -path $logfile -value "As of $dandt"		                	#added a printed text + calling the variable
-add-content -path $logfile -value "Computer: $comname"		          	#added a printed text + calling the variable
-add-content -path $logfile -value "Username: $user"			              #added a printed text + calling the variable
-add-content -path $logfile -value ""					                        #gives space onto file
-add-content -path $logfile -value $wininf                             #calling the variable
-add-content -path $logfile -value ""					                        #gives space onto file
+#Windows OS Version
+$wininf = get-ciminstance -classname win32_OperatingSystem | Select-object Caption, Version, BuildNumber, OSArchitecture   
+
+#Output of Built-In Battery report
+$batrep = "C:\ITAutomation\Logs\battery-report.html"                  
+
+add-content -path $logfile -value "================================" 	
+add-content -path $logfile -value "A Daily log has been generated!"		
+add-content -path $logfile -value "As of $dandt"		                	
+add-content -path $logfile -value "Computer: $comname"		          	
+add-content -path $logfile -value "Username: $user `n"			              
+add-content -path $logfile -value "$wininf `n"                            
 
 #Battery Report
-powercfg /batteryreport /output $batrep                                                 #Built-in health check status of battery
-add-content -path $logfile -value "The Battery report has been logged into $batrep `n"	#added a printed text + calling the variable)			                      
-
+powercfg /batteryreport /output $batrep                                                 
+add-content -path $logfile -value "The Battery report has been logged into $batrep `n"	                      
+add-content -path $logfile -value "================================" 	#creates a border

@@ -21,5 +21,3 @@ add-content -path $logfile -value "1. Temporary files cleared!"	    	#added a pr
 Clear-RecycleBin -Force							                                            #Clears the content of recycle bin
 add-content -path $logfile -value "2. Recycle bin has been deleted permanently!"	#added a printed text
 add-content -path $logfile -value "================================"	          #added a border
-
-#Recent Event Log

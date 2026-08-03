@@ -1,29 +1,31 @@
-#Weekly General log information
+#Weekly Security Scanning Script
 
-$logfile = "C:\ITAutomation\Logs\MaintenanceLogs.txt"									#creates a variable for a directed log path  
-$dandt = get-date -format "MM:dd:yyyy HH:mm:ss"											#creates a variable containing the value of date and time information, according to the specific format
-$cname = $env:COMPUTERNAME																#creates a variable containing the value of current computer name
-$user = $env:USERNAME																	#creates a variable containing the value of current user name
-$wininf = get-ciminstance -classname win32_OperatingSystem | Select-object Caption, Version, BuildNumber, OSArchitecture         #variable for Winversion information
+#Computer Information
+$logfile = "C:\ITAutomation\Logs\MaintenanceLogs.txt"									
+$dandt = get-date -format "MM:dd:yyyy HH:mm:ss"											
+$cname = $env:COMPUTERNAME																
+$user = $env:USERNAME	
 
-add-content -path $logfile -value "============================================"		#creates a border
-add-content -path $logfile -value "A Weekly log has been generated!"					#added a printed text
-add-content -path $logfile -value "As of $dandt"										#added a printed text + calling the variable
-add-content -path $logfile -value "Computer: $cname"									#added a printed text + calling the variable
-add-content -path $logfile -value "Username: $user"										#added a printed text + calling the variable
-add-content -path $logfile -value ""					                        #gives space onto file
-add-content -path $logfile -value $wininf                             #calling the variable
-add-content -path $logfile -value ""													#gives space onto file
+#Windows OS Version
+$wininf = get-ciminstance -classname win32_OperatingSystem | Select-object Caption, Version, BuildNumber, OSArchitecture        
+
+#File Header & Subheader Texts
+add-content -path $logfile -value "============================================"		
+add-content -path $logfile -value "A Weekly log has been generated!"					
+add-content -path $logfile -value "As of $dandt"										
+add-content -path $logfile -value "Computer: $cname"									
+add-content -path $logfile -value "Username: $user `n"														                        
+add-content -path $logfile -value "$wininf `n"													
 
 #Run Windows defender
-update-mpsignature																		#updates anti-malware and anti-virus definition 
-start-mpscan -scantype quickscan														#starts microsoft defender under quickscan only
-add-content -path $logfile -value "Quick scan is completed! Check information for more"	#added a printed text
+update-mpsignature																		
+start-mpscan -scantype quickscan														
+add-content -path $logfile -value "Quick scan is completed! Check information for more"	
 
 #Query threats after the scan finishes
-$threats = get-mpthreatdetection														#fetches the output of the scanning result under a defined variable
+$threats = get-mpthreatdetection														
 
-#Capture the output																		#Output variable for the if condition whether the results are good or bad
+#Capture the output																		
 $scanRes = if ($threats) {
 	"THREAD DETECTED!`n" + ($threats | Select-object ThreatName, InitialDetectionTime, Resources | Out-String)
 }
@@ -31,5 +33,6 @@ else {
 	"NO THREATS FOUND!" 
 }
 
-add-content -path $logfile -value "$scanRes"											#prints the output variable results
+#Logs the results of MPSCAN
+add-content -path $logfile -value "$scanRes `n"											#prints the output variable results
 add-content -path $logfile -value "============================================"		#creates a border

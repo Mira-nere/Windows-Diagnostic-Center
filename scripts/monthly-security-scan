@@ -14,10 +14,8 @@ add-content -path $logfile -value "============================================"
 add-content -path $logfile -value "A Monthly log has been generated!"					
 add-content -path $logfile -value "As of $dandt"										
 add-content -path $logfile -value "Computer: $cname"									
-add-content -path $logfile -value "Username: $user"										
-add-content -path $logfile -value ""					                        
-add-content -path $logfile -value $wininf                             
-add-content -path $logfile -value ""													
+add-content -path $logfile -value "Username: $user `n"					                        
+add-content -path $logfile -value "$wininf `n"													
 
 #Run Windows defender
 update-mpsignature																		
@@ -35,5 +33,5 @@ else {
 	"NO THREATS FOUND!" 
 }
 
-add-content -path $logfile -value "$scanRes"											
+add-content -path $logfile -value "$scanRes `n"											
 add-content -path $logfile -value "============================================"		

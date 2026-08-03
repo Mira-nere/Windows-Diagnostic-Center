@@ -4,7 +4,7 @@ A HomeLab & Foundational-ready, background-automated PowerShell maintenance fram
 
 IT Home Laboratory Project 1:  Supplementary for Help Desk Support and Administrators. <br>
 Specialized in Windows-featured Diagnostic Features.
----
+**---**
 
 **Learning Objectives:**
 

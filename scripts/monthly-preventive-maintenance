@@ -5,6 +5,7 @@ $dandt = get-date -Format "MM:dd:yyyy HH:mm:ss"				                #creates a va
 $comname = $env:COMPUTERNAME						                              #creates a variable containing the value of current computer name
 $user = $env:USERNAME							                                    #creates a variable containing the value of current user name
 $wininf = get-ciminstance -classname win32_OperatingSystem | Select-object Caption, Version, BuildNumber, OSArchitecture         #variable for Winversion information
+$batrep = "C:\ITAutomation\Logs\battery-report.html"                  #create variable for Output file of battery report
 
 add-content -path $logfile -value "================================" 	#creates a border
 add-content -path $logfile -value "A Daily log has been generated!"		      #added a printed text
@@ -16,4 +17,6 @@ add-content -path $logfile -value $wininf                             #calling t
 add-content -path $logfile -value ""					                        #gives space onto file
 
 #Battery Report
+powercfg /batteryreport /output $batrep                                #Built-in health check status of battery
+add-content -path $logfile -value "The Battery report has been logged into $batrep `n"	#added a printed text + calling the variable)			                      
 

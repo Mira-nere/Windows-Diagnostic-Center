@@ -33,5 +33,6 @@ else {
 	"NO THREATS FOUND!" 
 }
 
+#Logs results in MPSCAN
 add-content -path $logfile -value "$scanRes `n"											
 add-content -path $logfile -value "============================================"		

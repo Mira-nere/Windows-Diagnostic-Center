@@ -4,6 +4,9 @@ $dandt = get-date -Format "MM:dd:yyyy HH:mm:ss"				                #creates a va
 $comname = $env:COMPUTERNAME						                              #creates a variable containing the value of current computer name
 $user = $env:USERNAME							                                    #creates a variable containing the value of current user name
 $wininf = get-ciminstance -classname win32_OperatingSystem | Select-object Caption, Version, BuildNumber, OSArchitecture         #variable for Winversion information
+$disk = get-ciminstance -classname Win32_LogicalDisk -Filter "DeviceID='C:'"
+$free = [math]::round($disk.FreeSpace / 1GB, 2)
+$fdperc = [math]::round(($disk.FreeSpace / disk.Size)*100, 2)
 
 add-content -path $logfile -value "================================" 	#creates a border
 add-content -path $logfile -value "A Daily log has been generated!"		      #added a printed text
@@ -15,8 +18,7 @@ add-content -path $logfile -value $wininf                             #calling t
 add-content -path $logfile -value ""					                        #gives space onto file
 
 #Available Disk space
-rm $env:TEMP\* -r -force -EA SilentlyContinue			                  	#removes a direct path to temp and to all of its content files, and forces to run and ignore error and pop ups
-add-content -path $logfile -value "1. Temporary files cleared!"	    	#added a printed text
+add-content -path $logfile -value "C: Drive Free Space: $free GB ($fdperc% free) `n"					   #gives space onto file
 
 #SFC Scan
 Clear-RecycleBin -Force							                                            #Clears the content of recycle bin

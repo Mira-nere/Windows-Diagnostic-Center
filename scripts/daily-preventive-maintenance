@@ -12,16 +12,14 @@ add-content -path $logfile -value "================================"
 add-content -path $logfile -value "A Daily log has been generated!"		      
 add-content -path $logfile -value "As of $dandt"		                	
 add-content -path $logfile -value "Computer: $comname"		          	
-add-content -path $logfile -value "Username: $user"			               
-add-content -path $logfile -value ""					                        
-add-content -path $logfile -value $wininf                             
-add-content -path $logfile -value ""					                      
+add-content -path $logfile -value "Username: $user `n"					                        
+add-content -path $logfile -value "$wininf `n"                            				                      
 
 #Clear temporary files
 rm $env:TEMP\* -r -force -EA SilentlyContinue			                  	
-add-content -path $logfile -value "1. Temporary files cleared!"	    	
+add-content -path $logfile -value "1. Temporary files cleared! `n"	    	
 
 #Clear recycle bin
 Clear-RecycleBin -Force							                                            
-add-content -path $logfile -value "2. Recycle bin has been deleted permanently!"	
+add-content -path $logfile -value "2. Recycle bin has been deleted permanently! `n"	
 add-content -path $logfile -value "================================"	          

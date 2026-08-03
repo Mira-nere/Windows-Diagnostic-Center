@@ -10,6 +10,8 @@ add-content -path $logfile -value "As of $dandt"		                	#added a prin
 add-content -path $logfile -value "Computer: $comname"		          	#added a printed text + calling the variable
 add-content -path $logfile -value "Username: $user"			               #added a printed text + calling the variable
 add-content -path $logfile -value ""					                        #gives space onto file
+add-content -path $logfile -value $wininf                             #calling the variable
+add-content -path $logfile -value ""					                        #gives space onto file
 
 #Clear temporary files
 rm $env:TEMP\* -r -force -EA SilentlyContinue			                  	#removes a direct path to temp and to all of its content files, and forces to run and ignore error and pop ups

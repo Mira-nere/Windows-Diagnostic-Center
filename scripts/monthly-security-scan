@@ -1,4 +1,4 @@
-#Weekly General log information
+#Monthly General log information
 
 $logfile = "C:\ITAutomation\Logs\MaintenanceLogs.txt"									#creates a variable for a directed log path  
 $dandt = get-date -format "MM:dd:yyyy HH:mm:ss"											#creates a variable containing the value of date and time information, according to the specific format
@@ -6,7 +6,7 @@ $cname = $env:COMPUTERNAME																#creates a variable containing the val
 $user = $env:USERNAME																	#creates a variable containing the value of current user name
 
 add-content -path $logfile -value "============================================"		#creates a border
-add-content -path $logfile -value "A Weekly log has been generated!"					#added a printed text
+add-content -path $logfile -value "A Monthly log has been generated!"					#added a printed text
 add-content -path $logfile -value "As of $dandt"										#added a printed text + calling the variable
 add-content -path $logfile -value "Computer: $cname"									#added a printed text + calling the variable
 add-content -path $logfile -value "Username: $user"										#added a printed text + calling the variable
@@ -14,7 +14,7 @@ add-content -path $logfile -value ""													#gives space onto file
 
 #Run Windows defender
 update-mpsignature																		#updates anti-malware and anti-virus definition 
-start-mpscan -scantype fullscan						  					#starts microsoft defender under fullscan
+start-mpscan -scantype fullscan						  									#starts microsoft defender under fullscan
 add-content -path $logfile -value "Quick scan is completed! Check information for more"	#added a printed text
 
 #Query threats after the scan finishes

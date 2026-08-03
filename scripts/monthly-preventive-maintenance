@@ -15,11 +15,5 @@ add-content -path $logfile -value ""					                        #gives space on
 add-content -path $logfile -value $wininf                             #calling the variable
 add-content -path $logfile -value ""					                        #gives space onto file
 
-#Clear temporary files
-rm $env:TEMP\* -r -force -EA SilentlyContinue			                  	#removes a direct path to temp and to all of its content files, and forces to run and ignore error and pop ups
-add-content -path $logfile -value "1. Temporary files cleared!"	    	#added a printed text
+#Battery Report
 
-#Clear recycle bin
-Clear-RecycleBin -Force							                                            #Clears the content of recycle bin
-add-content -path $logfile -value "2. Recycle bin has been deleted permanently!"	#added a printed text
-add-content -path $logfile -value "================================"	          #added a border

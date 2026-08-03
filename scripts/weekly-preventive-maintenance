@@ -1,25 +1,39 @@
-#Weekly
-$logfile = "C:\ITAutomation\Logs\MaintenanceLogs.txt"			            #creates a variable for a directed log path
-$dandt = get-date -Format "MM:dd:yyyy HH:mm:ss"				                #creates a variable containing the value of date and time information, according to the specific format
-$comname = $env:COMPUTERNAME						                              #creates a variable containing the value of current computer name
-$user = $env:USERNAME							                                    #creates a variable containing the value of current user name
-$wininf = get-ciminstance -classname win32_OperatingSystem | Select-object Caption, Version, BuildNumber, OSArchitecture         #variable for Winversion information
-$disk = get-ciminstance -classname Win32_LogicalDisk -Filter "DeviceID='C:'"
-$free = [math]::round($disk.FreeSpace / 1GB, 2)
-$fdperc = [math]::round(($disk.FreeSpace / disk.Size)*100, 2)
+# Weekly Maintenance Script
+$logfile = "C:\ITAutomation\Logs\MaintenanceLogs.txt"                         
+$dandt   = Get-Date -Format "MM/dd/yyyy HH:mm:ss"                             
+$comname = $env:COMPUTERNAME                                                  
+$user    = $env:USERNAME                                                    
 
-add-content -path $logfile -value "================================" 	#creates a border
-add-content -path $logfile -value "A Daily log has been generated!"		      #added a printed text
-add-content -path $logfile -value "As of $dandt"		                	#added a printed text + calling the variable
-add-content -path $logfile -value "Computer: $comname"		          	#added a printed text + calling the variable
-add-content -path $logfile -value "Username: $user"			               #added a printed text + calling the variable
-add-content -path $logfile -value ""					                        #gives space onto file
-add-content -path $logfile -value $wininf                             #calling the variable
-add-content -path $logfile -value ""					                        #gives space onto file
+# Windows Info Variables
+$os     = Get-CimInstance -ClassName Win32_OperatingSystem
+$winCap = $os.Caption
+$winVer = $os.Version
+$winBld = $os.BuildNumber
+$winArch= $os.OSArchitecture
 
-#Available Disk space
-add-content -path $logfile -value "C: Drive Free Space: $free GB ($fdperc% free) `n"					   #gives space onto file
+# Disk Space Variables
+$disk   = Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DeviceID='C:'"
+$free   = [math]::Round($disk.FreeSpace / 1GB, 2)
+$fdperc = [math]::Round(($disk.FreeSpace / $disk.Size) * 100, 2)
 
-#SFC Scan
+Add-Content -Path $logfile -Value "================================"
+Add-Content -Path $logfile -Value "A Weekly Log Has Been Generated!"
+Add-Content -Path $logfile -Value "As of $dandt"
+Add-Content -Path $logfile -Value "Computer: $comname"
+Add-Content -Path $logfile -Value "Username: $user"
+Add-Content -Path $logfile -Value "OS: $winCap ($winArch) | Version: $winVer | Build: $winBld `n"
 
-#DISM
+#Available Disk Space
+Add-Content -Path $logfile -Value "C: Drive Free Space: $free GB ($fdperc% free) `n"
+
+#System File Checker
+Add-Content -Path $logfile -Value "Running System File Checker (SFC)..."
+$sfcResult = sfc /scannow
+Add-Content -Path $logfile -Value "$sfcResult `n"
+
+#Deployment Image Servicing and Management Restoration
+Add-Content -Path $logfile -Value "Running DISM Health Check..."
+$dismResult = DISM.exe /Online /Cleanup-Image /RestoreHealth
+Add-Content -Path $logfile -Value "$dismResult `n"
+
+Add-Content -Path $logfile -Value "================================ `n"

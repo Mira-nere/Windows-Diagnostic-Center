@@ -21,8 +21,5 @@ add-content -path $logfile -value ""					                        #gives space on
 add-content -path $logfile -value "C: Drive Free Space: $free GB ($fdperc% free) `n"					   #gives space onto file
 
 #SFC Scan
-Clear-RecycleBin -Force							                                            #Clears the content of recycle bin
-add-content -path $logfile -value "2. Recycle bin has been deleted permanently!"	#added a printed text
-add-content -path $logfile -value "================================"	          #added a border
 
 #DISM

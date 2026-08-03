@@ -4,6 +4,7 @@ $logfile = "C:\ITAutomation\Logs\MaintenanceLogs.txt"									#creates a variabl
 $dandt = get-date -format "MM:dd:yyyy HH:mm:ss"											#creates a variable containing the value of date and time information, according to the specific format
 $cname = $env:COMPUTERNAME																#creates a variable containing the value of current computer name
 $user = $env:USERNAME																	#creates a variable containing the value of current user name
+$wininf = get-ciminstance -classname win32_OperatingSystem | Select-object Caption, Version, BuildNumber, OSArchitecture         #variable for Winversion information
 
 add-content -path $logfile -value "============================================"		#creates a border
 add-content -path $logfile -value "A Weekly log has been generated!"					#added a printed text
